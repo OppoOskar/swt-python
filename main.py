@@ -3,7 +3,10 @@ import ccvwrapper
 import numpy as np
 from skimage import draw
 from skimage.io import imread, imshow, imsave
-from matplotlib import pyplot as plt
+#from matplotlib import pyplot as plt
+import matplotlib
+matplotlib.use('agg')
+import matplotlib.pyplot as plt
 
 
 def rectangle_perimeter(r0, c0, width, height, shape=None, clip=False):
@@ -13,17 +16,19 @@ def rectangle_perimeter(r0, c0, width, height, shape=None, clip=False):
 
 
 if __name__ == "__main__":
-    image_name = "test_input.jpg"
+    image_name = "instrumentB.jpg"
     bytes = open(image_name, "rb").read()
-    swt_result_raw = ccvwrapper.swt(bytes, len(bytes), 1024, 1360)
-    swt_result = np.reshape(swt_result_raw, (len(swt_result_raw) / 4, 4))
+    swt_result_raw = ccvwrapper.swt(bytes, 1024, 1360) #NEW
+    swt_result_array = np.asarray(swt_result_raw).astype(int)
 
-    image = imread(image_name, as_grey=False)
+    swt_result = np.reshape(swt_result_array, (len(swt_result_array) / 4, 4))
+
+    image = imread(image_name, as_gray=False)
     for x, y, width, height in swt_result:
-        for i in xrange(0, 3): # just to make lines thicker
+        for i in range(0, 3): # just to make lines thicker
             rr, cc = rectangle_perimeter(y + i, x + i, height, width, shape=image.shape, clip=True)
             image[rr, cc] = (255, 0, 0)
 
-    imshow(image)
+    #imshow(image)
     imsave("result.jpg", image)
     plt.show()

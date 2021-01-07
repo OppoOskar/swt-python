@@ -4,6 +4,12 @@
 #include "ccvwrapper.h"
 %}
 
+%typemap(in) (char *bytes, int array_length) {
+    Py_ssize_t len;
+    PyBytes_AsStringAndSize($input, &$1, &len);
+    $2 = (int)len;
+}
+
 %typemap(out) int* swt {
 	int i;
 	$result = PyList_New($1[0]);
@@ -13,6 +19,7 @@
 	}
 	free($1);
 }
+
 
 %include "ccvwrapper.h"
 
