@@ -1,9 +1,11 @@
+## WARNING, this is untested. Use on your own risk.
+This is a fork from @marrrcin swt-python repository. I got it working on python 3 with these changes back in 2019 but as I upload this I have not tested it now. I do not maintain or activly use this. I explain some of the changes in this thread: https://github.com/marrrcin/swt-python/issues/1.
+
+
 # Fast Stroke Width Transform for Python
 This repo contains wrapper for libccv's SWT algorithm for use in Python.
 
 For more information, see my blog post: http://zablo.net/blog/post/stroke-width-transform-swt-python
-
-## WARNING, this is untested. Use on your own risk.
 
 ## How to:
 
